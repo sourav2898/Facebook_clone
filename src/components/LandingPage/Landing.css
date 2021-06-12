@@ -1,0 +1,60 @@
+.landing {
+  background-color: #f0f2f5;
+  height: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.leftbar {
+  width: 35%;
+  margin-top: 130px;
+}
+
+.fb_image {
+  width: 250px;
+  object-fit: contain;
+}
+
+.desc {
+  font-weight: 400;
+  padding: 0 0 0 25px;
+}
+
+.rightbar {
+  margin-top: 100px;
+  width: 40%;
+  align-items: center;
+}
+
+.lnd_footer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.footer {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.footer ul li {
+  float: left;
+  text-decoration: none;
+  padding: 10px;
+  cursor: pointer;
+  list-style: none;
+  color: blue;
+  font-size: 15px;
+}
+
+.footer ul li:hover {
+  text-decoration: underline;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 0;
+  width: 60%;
+  margin: 0 auto;
+}

@@ -1,0 +1,39 @@
+.login_container {
+  padding: 15px;
+  background-color: #fff;
+  width: 450px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+.forgot {
+  padding: 20px;
+  color: #1877f2;
+  cursor: pointer;
+  border-bottom: 1px solid #dadde1;
+  width: 100%;
+  text-align: center;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+.create_page {
+  text-align: center;
+  margin: 15px;
+  font-size: 15px;
+}
+
+.create_page b {
+  cursor: pointer;
+}
+
+.create_page b:hover {
+  text-decoration: underline;
+}
