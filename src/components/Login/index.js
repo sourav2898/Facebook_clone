@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button, makeStyles } from "@material-ui/core";
+import { Formik } from "formik";
+import { auth } from "../../firebase";
 import "./login.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,42 +28,96 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({ openSignUp }) => {
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <>
       <div className="login_container">
-        <form className={classes.root} noValidate autoComplete="off">
-          <TextField
-            className={classes.textField}
-            required
-            id="outlined-required"
-            placeholder="Email address or phone number"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-          />
-          <TextField
-            className={classes.textField}
-            required
-            id="outlined-required"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            variant="outlined"
-          />
-          <Button className={classes.btn} variant="contained" color="primary">
-            Login
-          </Button>
-        </form>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            if (!values.password) errors.password = "Required";
+            return errors;
+          }}
+          onSubmit={(values) => {
+            auth
+              .signInWithEmailAndPassword(values.email, values.password)
+              .then(() => {
+                alert("login successfull");
+                return true;
+              })
+              .catch((error) => {
+                alert(error.message);
+                return false;
+              });
+          }}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form
+              className={classes.root}
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                error={errors.email}
+                className={classes.textField}
+                name="email"
+                id="email"
+                type="email"
+                placeholder="Email address or phone number"
+                value={values.email}
+                onChange={handleChange}
+                variant="outlined"
+              />
+              <TextField
+                error={errors.password}
+                className={classes.textField}
+                name="password"
+                id="Password"
+                type="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleChange}
+                variant="outlined"
+              />
+              <Button
+                className={classes.btn}
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Login
+              </Button>
+            </form>
+          )}
+        </Formik>
         <p className="forgot">Forgotten Password?</p>
         <Button
           className={classes.btn_create}
           variant="contained"
           color="green"
+          onClick={openSignUp}
         >
           Create New Account
         </Button>

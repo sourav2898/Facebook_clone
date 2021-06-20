@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Landing.css";
 import Login from "../Login";
+import Signup from "../Signup";
 import CopyrightIcon from "@material-ui/icons/Copyright";
 
 const language = [
@@ -16,40 +17,60 @@ const language = [
   "ਪੰਜਾਬੀ",
 ];
 
-const index = () => {
+const Landing = () => {
   const d = new Date().getFullYear();
+  const [lang, setLang] = useState("English (UK)");
+  const [openUp, setOpenUp] = useState(false);
+
+  const getLang = (value) => {
+    setLang(value);
+  };
+
+  const openSignUp = () => {
+    setOpenUp(!openUp);
+  };
 
   return (
     <>
       <div className="landing">
+        {openUp && <Signup openSignUp={openSignUp} />}
+
         <div className="leftbar">
           <img
             className="fb_image"
             src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg"
             alt="facebook"
           />
-          <h2 className="desc">
+          <h2 className="landing_desc">
             Facebook helps you connect and share with the people in your life.
           </h2>
         </div>
         <div className="rightbar">
-          <Login />
+          <Login openSignUp={openSignUp} />
         </div>
       </div>
       <div className="lnd_footer">
         <div className="footer">
           <ul>
-            {language.map((value, index) => {
-              return <li id={index}>{value}</li>;
+            {language?.map((value, index) => {
+              return (
+                <li
+                  style={lang === value ? { color: "#111" } : {}}
+                  id={index}
+                  onClick={() => getLang(value)}
+                >
+                  {value}
+                </li>
+              );
             })}
           </ul>
         </div>
       </div>
-      <div className="copyright">
+      <p className="copyright">
         Facebook <CopyrightIcon style={{ fontSize: "13px" }} /> {d}
-      </div>
+      </p>
     </>
   );
 };
 
-export default index;
+export default Landing;

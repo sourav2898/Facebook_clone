@@ -27,6 +27,7 @@
 .create_page {
   text-align: center;
   margin: 15px;
+  color: #1c1c1c;
   font-size: 15px;
 }
 
@@ -36,4 +37,10 @@
 
 .create_page b:hover {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+  .login_container {
+    width: 100%;
+  }
 }
