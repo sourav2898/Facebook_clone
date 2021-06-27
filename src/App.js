@@ -34,7 +34,11 @@ const App = () => {
     <Router>
       {user && <Navbar />}
       <Switch>
-        <Route exact path="/" component={user ? Home : LandingPage}></Route>
+        <Route
+          exact
+          path="/"
+          render={() => (user ? <Home user={user} /> : <LandingPage />)}
+        ></Route>
         <Route exact path="/liveTv" component={LiveTv}></Route>
       </Switch>
     </Router>

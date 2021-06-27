@@ -21,6 +21,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import GamesIcon from "@material-ui/icons/Games";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -101,14 +102,18 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  profile: {
+    marginTop: `${theme.spacing(5)}px`,
+  },
 }));
 
 const Navbar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const location = window.location.href;
-  console.log(location);
+  const [active, setActive] = useState("home");
+  // const location = window.location.href;
+  // console.log(location.charAt(location.length - 1));
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -145,6 +150,7 @@ const Navbar = () => {
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      className={classes.profile}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -195,7 +201,7 @@ const Navbar = () => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ backgroundColor: "#1c1c1c" }}>
+      <AppBar position="fixed" style={{ backgroundColor: "#1c1c1c" }}>
         <Toolbar>
           <Link to="/">
             <img
@@ -219,7 +225,15 @@ const Navbar = () => {
           </div>
           {/* <div className={classes.grow} /> */}
           <div className={classes.route}>
-            <Link style={{ color: "grey" }} to="/">
+            <Link
+              onClick={() => setActive("home")}
+              style={
+                active === "home"
+                  ? { color: "blue", borderBottom: "3px solid blue" }
+                  : { color: "grey" }
+              }
+              to="/"
+            >
               <IconButton
                 className={classes.routeIcons}
                 aria-label="show 4 new mails"
@@ -228,7 +242,15 @@ const Navbar = () => {
                 <HomeIcon />
               </IconButton>
             </Link>
-            <Link style={{ color: "grey" }} to="/liveTv">
+            <Link
+              onClick={() => setActive("liveTv")}
+              style={
+                active === "liveTv"
+                  ? { color: "blue", borderBottom: "3px solid blue" }
+                  : { color: "grey" }
+              }
+              to="/liveTv"
+            >
               <IconButton
                 className={classes.routeIcons}
                 aria-label="show 4 new mails"
@@ -237,7 +259,15 @@ const Navbar = () => {
                 <LiveTvIcon />
               </IconButton>
             </Link>
-            <Link style={{ color: "grey" }} to="/store">
+            <Link
+              onClick={() => setActive("store")}
+              style={
+                active === "store"
+                  ? { color: "blue", borderBottom: "3px solid blue" }
+                  : { color: "grey" }
+              }
+              to="/store"
+            >
               <IconButton
                 className={classes.routeIcons}
                 aria-label="show 4 new mails"
@@ -246,7 +276,15 @@ const Navbar = () => {
                 <StorefrontIcon />
               </IconButton>
             </Link>
-            <Link style={{ color: "grey" }} to="/group">
+            <Link
+              onClick={() => setActive("group")}
+              style={
+                active === "group"
+                  ? { color: "blue", borderBottom: "3px solid blue" }
+                  : { color: "grey" }
+              }
+              to="/group"
+            >
               <IconButton
                 className={classes.routeIcons}
                 aria-label="show 4 new mails"
@@ -255,7 +293,15 @@ const Navbar = () => {
                 <GroupIcon />
               </IconButton>
             </Link>
-            <Link style={{ color: "grey" }} to="/games">
+            <Link
+              onClick={() => setActive("games")}
+              style={
+                active === "games"
+                  ? { color: "blue", borderBottom: "3px solid blue" }
+                  : { color: "grey" }
+              }
+              to="/games"
+            >
               <IconButton
                 aria-label="show 4 new mails"
                 className={classes.routeIcons}
