@@ -9,7 +9,7 @@ import { Button } from "@material-ui/core";
 import { db } from "../../firebase";
 import Popover from "@material-ui/core/Popover";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+// import EditIcon from "@material-ui/icons/Edit";
 
 const Posts = ({ caption, image, username, postId, email, postEmail }) => {
   const [liked, isLiked] = useState(false);
@@ -151,9 +151,9 @@ const Posts = ({ caption, image, username, postId, email, postEmail }) => {
                 horizontal: "center",
               }}
             >
-              <p style={{ padding: "10px", cursor: "pointer" }}>
+              {/* <p style={{ padding: "10px", cursor: "pointer" }}>
                 <EditIcon />
-              </p>
+              </p> */}
               <p
                 style={{ padding: "10px", cursor: "pointer" }}
                 onClick={deletePost}

@@ -179,7 +179,7 @@ const Signup = ({ openSignUp }) => {
                     id="email"
                     type="email"
                     className="email text"
-                    placeholder="Mobile number or email address"
+                    placeholder="Email address"
                     variant="outlined"
                     onChange={handleChange}
                     value={values.email}
