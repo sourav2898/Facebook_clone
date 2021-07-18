@@ -39,7 +39,26 @@ const App = () => {
           path="/"
           render={() => (user ? <Home user={user} /> : <LandingPage />)}
         ></Route>
-        <Route exact path="/liveTv" component={LiveTv}></Route>
+        <Route
+          exact
+          path="/liveTv"
+          render={() => <LiveTv value="Live Tv" />}
+        ></Route>
+        <Route
+          exact
+          path="/store"
+          render={() => <LiveTv value="Store" />}
+        ></Route>
+        <Route
+          exact
+          path="/group"
+          render={() => <LiveTv value="Group" />}
+        ></Route>
+        <Route
+          exact
+          path="/games"
+          render={() => <LiveTv value="Games" />}
+        ></Route>
       </Switch>
     </Router>
   );

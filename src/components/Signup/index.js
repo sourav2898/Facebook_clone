@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import "./signup.css";
 import TextField from "@material-ui/core/TextField";
 import CloseIcon from "@material-ui/icons/Close";
@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import HelpIcon from "@material-ui/icons/Help";
 import { Button } from "@material-ui/core";
 import { Formik } from "formik";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = ({ openSignUp }) => {
   const classes = useStyles();
+  const [loading, isLoading] = useState(false);
   const curr_year = new Date().getUTCFullYear();
   const curr_month = new Date().getUTCMonth();
   const curr_date = new Date().getUTCDate();
@@ -65,8 +67,6 @@ const Signup = ({ openSignUp }) => {
   for (let i = 1905; i <= curr_year; i++) {
     years.push(i);
   }
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -115,9 +115,11 @@ const Signup = ({ openSignUp }) => {
               }}
               onSubmit={(values) => {
                 console.log(values);
+                isLoading(true);
                 auth
                   .createUserWithEmailAndPassword(values.email, values.password)
                   .then((authUser) => {
+                    isLoading(false);
                     openSignUp();
                     return authUser.user.updateProfile({
                       displayName: values.first_name + values.last_name,
@@ -125,6 +127,7 @@ const Signup = ({ openSignUp }) => {
                   })
                   .catch((error) => {
                     alert(error.message);
+                    isLoading(false);
                     return false;
                   });
               }}
@@ -317,13 +320,19 @@ const Signup = ({ openSignUp }) => {
                     can opt out at any time.
                   </p>
                   <div className="sinup_button">
-                    <Button
-                      className={classes.button}
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
-                      SignUP
-                    </Button>
+                    {loading ? (
+                      <div style={{ textAlign: "center" }}>
+                        <CircularProgress style={{ color: "green" }} />
+                      </div>
+                    ) : (
+                      <Button
+                        className={classes.button}
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        SignUP
+                      </Button>
+                    )}
                   </div>
                 </form>
               )}

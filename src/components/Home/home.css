@@ -125,3 +125,23 @@
 .right_header .contacts:hover {
   background-color: #1c1c1c;
 }
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .home_left,
+  .home_right {
+    display: none;
+  }
+
+  .home_mid {
+    width: 100%;
+    padding: 10px;
+  }
+}

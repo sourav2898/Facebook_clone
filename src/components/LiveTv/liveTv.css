@@ -1,0 +1,10 @@
+.liveTv {
+  width: 100%;
+  height: 100vh;
+  background-color: #131313;
+  color: #fff;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

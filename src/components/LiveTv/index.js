@@ -1,7 +1,11 @@
 import React from "react";
-
-const LiveTv = () => {
-  return <div> Welcome to live tv </div>;
+import "./liveTv.css";
+const LiveTv = ({ value }) => {
+  return (
+    <div className="liveTv">
+      <p>{value} Is Comming Soon</p>
+    </div>
+  );
 };
 
 export default LiveTv;

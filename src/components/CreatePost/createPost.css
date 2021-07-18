@@ -49,6 +49,12 @@
   border: none;
 }
 
+.container .post_asset {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .container .post_lower {
   color: #fff;
   display: flex;
@@ -59,4 +65,10 @@
 
 .post_btn {
   padding: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .create_post .container {
+    width: 95%;
+  }
 }

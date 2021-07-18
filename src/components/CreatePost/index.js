@@ -5,8 +5,25 @@ import Avatar from "@material-ui/core/Avatar";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { Button } from "@material-ui/core";
+import CancelPresentationIcon from "@material-ui/icons/CancelPresentation";
+import LinearProgressWithLabel from "@material-ui/core/LinearProgress";
 
-const CreatePost = ({ close, user, postInput, setPostInput }) => {
+const CreatePost = ({
+  close,
+  user,
+  img,
+  postInput,
+  setPostInput,
+  handleImage,
+  removeAsset,
+  handleUpload,
+  uploading,
+  progress,
+}) => {
+  const handleChange = (e) => {
+    handleImage(e);
+  };
+
   return (
     <div className="create_post">
       <div className="container">
@@ -14,10 +31,16 @@ const CreatePost = ({ close, user, postInput, setPostInput }) => {
           <h1>{}</h1>
           <h3>Create Post</h3>
           <HighlightOffIcon
-            onClick={close}
+            onClick={
+              !uploading
+                ? close
+                : () => {
+                    alert("can't close upload under process.");
+                  }
+            }
             style={{
-              cursor: "pointer",
-              color: "lightgray",
+              cursor: `${!uploading ? "pointer" : "none"}`,
+              color: `${!uploading ? "lightgray" : "gray"}`,
               fontWeight: "bold",
             }}
           />
@@ -36,14 +59,37 @@ const CreatePost = ({ close, user, postInput, setPostInput }) => {
             onChange={(e) => {
               setPostInput(e.target.value);
             }}
-          >
-            {" "}
-          </textarea>
+          ></textarea>
         </div>
+        {img?.size > 0 && (
+          <div className="post_asset">
+            {/* <img src="" alt="post_asset" /> */}
+            <p> {img?.name} </p>
+            <CancelPresentationIcon
+              style={{
+                color: `red`,
+                cursor: "pointer",
+              }}
+              onClick={progress === 0 && removeAsset}
+            />
+          </div>
+        )}
         <div className="post_lower">
           <div className="post_lower_actions">
-            <PhotoLibraryIcon style={{ marginRight: "5px", color: "green" }} />
-            <p>Photos</p>
+            <input
+              id="file"
+              className="file"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              hidden
+            />{" "}
+            <label for="file" style={{ display: "flex" }}>
+              <PhotoLibraryIcon
+                style={{ marginRight: "5px", color: "green" }}
+              />
+              <p>Photos</p>
+            </label>
           </div>
           <div className="post_lower_actions">
             <InsertEmoticonIcon
@@ -53,14 +99,31 @@ const CreatePost = ({ close, user, postInput, setPostInput }) => {
           </div>
         </div>
         <div className="post_btn">
-          <Button
-            style={{ width: "100%" }}
-            color="primary"
-            variant="contained"
-            disabled={postInput === ""}
-          >
-            Post
-          </Button>
+          {!uploading ? (
+            <Button
+              style={{ width: "100%" }}
+              color="primary"
+              variant="contained"
+              disabled={postInput === ""}
+              onClick={handleUpload}
+            >
+              Post
+            </Button>
+          ) : (
+            <>
+              <LinearProgressWithLabel value={progress} />
+              <p
+                style={{
+                  color: "blue",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                }}
+              >
+                {progress}%
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

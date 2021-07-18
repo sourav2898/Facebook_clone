@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: "inherit",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -88,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    [theme.breakpoints.down("md")]: {
+      display: "none",
     },
   },
   sectionDesktop: {
@@ -153,7 +159,6 @@ const Navbar = () => {
       className={classes.profile}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleLogOut}>LogOut</MenuItem>
     </Menu>
   );
@@ -171,17 +176,13 @@ const Navbar = () => {
     >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MessageIcon />
-          </Badge>
+          <MessageIcon />
         </IconButton>
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
+          <NotificationsIcon />
         </IconButton>
         <p>Notifications</p>
       </MenuItem>

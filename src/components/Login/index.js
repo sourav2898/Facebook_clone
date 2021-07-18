@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Button, makeStyles } from "@material-ui/core";
 import { Formik } from "formik";
 import { auth } from "../../firebase";
 import "./login.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ openSignUp }) => {
   const classes = useStyles();
-
+  const [loading, isLoading] = useState(false);
   return (
     <>
       <div className="login_container">
@@ -52,13 +53,16 @@ const Login = ({ openSignUp }) => {
             return errors;
           }}
           onSubmit={(values) => {
+            isLoading(true);
             auth
               .signInWithEmailAndPassword(values.email, values.password)
               .then(() => {
+                isLoading(false);
                 alert("login successfull");
                 return true;
               })
               .catch((error) => {
+                isLoading(false);
                 alert(error.message);
                 return false;
               });
@@ -101,14 +105,20 @@ const Login = ({ openSignUp }) => {
                 onChange={handleChange}
                 variant="outlined"
               />
-              <Button
-                className={classes.btn}
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Login
-              </Button>
+              {loading ? (
+                <div style={{ textAlign: "center" }}>
+                  <CircularProgress />
+                </div>
+              ) : (
+                <Button
+                  className={classes.btn}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              )}
             </form>
           )}
         </Formik>
