@@ -149,7 +149,7 @@ const Home = ({ user }) => {
       <div className="home">
         <div className="home_left">
           <p className="home_left_link">
-            <Link className="link">
+            <Link to="" className="link">
               {" "}
               <AccountCircleTwoToneIcon
                 style={{ marginRight: "10px", color: "lightseagreen" }}
@@ -160,7 +160,7 @@ const Home = ({ user }) => {
           {left_bar_first_half.map((value, index) => {
             return (
               <p key={index} className="home_left_link">
-                <Link className="link">
+                <Link to="" className="link">
                   {" "}
                   <span
                     className="left_icon"
@@ -183,7 +183,7 @@ const Home = ({ user }) => {
               }}
               onClick={() => isShowing(true)}
             >
-              <Link className="link">
+              <Link to="" className="link">
                 {" "}
                 <ArrowDropDownIcon style={{ marginRight: "10px" }} /> Show More
               </Link>
@@ -193,7 +193,7 @@ const Home = ({ user }) => {
             left_bar_second_half.map((value, index) => {
               return (
                 <p key={index} className="home_left_link">
-                  <Link className="link">
+                  <Link to="" className="link">
                     {" "}
                     <span
                       className="left_icon"
@@ -216,7 +216,7 @@ const Home = ({ user }) => {
               }}
               onClick={() => isShowing(false)}
             >
-              <Link className="link">
+              <Link to="" className="link">
                 {" "}
                 <ArrowDropUpIcon style={{ marginRight: "10px" }} /> Show Less
               </Link>
@@ -276,6 +276,7 @@ const Home = ({ user }) => {
               {posts?.map((value) => {
                 return (
                   <Posts
+                    key={value?.id}
                     id={value?.id}
                     postId={value?.id}
                     caption={value?.post?.caption}
@@ -296,7 +297,7 @@ const Home = ({ user }) => {
             <p>Contacts</p>
             {contacts?.map((value, index) => {
               return (
-                <div className="contacts" id={index}>
+                <div className="contacts" id={index} key={index}>
                   <Avatar style={{ marginRight: "10px" }}>
                     {value.charAt(0)}
                   </Avatar>

@@ -246,7 +246,7 @@ const Posts = ({ caption, image, username, postId, email, postEmail }) => {
         <div className="comment_section">
           {comments.map((values, index) => {
             return (
-              <div className="comment" id={index}>
+              <div className="comment" id={index} key={index}>
                 <div>
                   <Avatar style={{ marginRight: "10px" }}>
                     {username.charAt(0)}
